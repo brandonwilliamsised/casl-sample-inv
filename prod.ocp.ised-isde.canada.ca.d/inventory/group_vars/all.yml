@@ -27,7 +27,7 @@ cloud_infrastructure:
    region: ca-central-1
    image_name: ami-49f0762d
    masters:
-     count: 1
+     count: 3
      flavor: m4.xlarge
      zones:
      - ca-central-1a
@@ -43,7 +43,7 @@ cloud_infrastructure:
      root_volume_size: 70
      docker_volume_size: 70
    appnodes:
-     count: 1
+     count: 5
      flavor: r4.xlarge
      zones:
      - ca-central-1a
@@ -51,7 +51,7 @@ cloud_infrastructure:
      root_volume_size: 70
      docker_volume_size: 70
    infranodes:
-     count: 1
+     count: 3
      flavor: m4.xlarge
      zones:
      - ca-central-1a
