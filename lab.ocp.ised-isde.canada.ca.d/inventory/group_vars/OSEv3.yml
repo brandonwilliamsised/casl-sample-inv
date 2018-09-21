@@ -44,8 +44,8 @@ openshift_master_cluster_hostname: "console.internal.{{ env_id }}.{{ dns_domain 
 openshift_master_cluster_public_hostname: "console.{{ env_id }}.{{ dns_domain }}"
 
 # Certificates
-openshift_master_named_certificates: [{"certfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/master/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/master/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/master/fullchain.pem"}]
-openshift_hosted_router_certificate: {"certfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/router/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/router/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/router/fullchain.pem"} 
+openshift_master_named_certificates: [{"certfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/master/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/master/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/master/fullchain.pem"}]
+openshift_hosted_router_certificate: {"certfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/router/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/router/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/router/fullchain.pem"} 
 
 # Deploy Logging with dynamic storage
 openshift_logging_install_logging: "true"
