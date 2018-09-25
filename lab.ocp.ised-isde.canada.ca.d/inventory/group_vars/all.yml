@@ -44,7 +44,7 @@ cloud_infrastructure:
      docker_volume_size: 70
    appnodes:
      count: 2
-     flavor: r4.xlarge
+     flavor: m4.large
      zones:
      - ca-central-1a
      name_prefix: app
