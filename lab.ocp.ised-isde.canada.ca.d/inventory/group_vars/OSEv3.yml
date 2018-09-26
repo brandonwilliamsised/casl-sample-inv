@@ -106,32 +106,34 @@ openshift_prometheus_alertbuffer_sc_name: "gp2"
 
 # HTPASSWD Identity Provider
 # - update to other types of auth providers if necessary (i.e: LDAP, OAuth, ...)
-#openshift_master_identity_providers:
-# - 'name': 'htpasswd_auth'
-#   'login': 'true'
-#   'challenge': 'true'
-#   'kind': 'HTPasswdPasswordIdentityProvider'
+# Note - williab1 - comment this out as this isn't what we want, just testing
+openshift_master_identity_providers:
+- 'name': 'htpasswd_auth'
+  'login': 'true'
+  'challenge': 'true'
+  'kind': 'HTPasswdPasswordIdentityProvider'
 
 # GITHUB Identity Provider
-openshift_master_identity_providers:
-- 'name': 'github'
-  'login': 'true'
-  'challenge': 'false'
-  'kind': 'GitHubIdentityProvider'
-  'mappingMethod': 'claim'
-  'clientID': "{{ lookup('env','GITHUB_AUTH_CLIENT_ID') }}"
-  'clientSecret': "{{ lookup('env','GITHUB_AUTH_CLIENT_SECRET') }}"
-  organizations:
-  - 'ised-ocp-dev'
+# openshift_master_identity_providers:
+# - 'name': 'github'
+#   'login': 'true'
+#   'challenge': 'false'
+#   'kind': 'GitHubIdentityProvider'
+#   'mappingMethod': 'claim'
+#   'clientID': "{{ lookup('env','GITHUB_AUTH_CLIENT_ID') }}"
+#   'clientSecret': "{{ lookup('env','GITHUB_AUTH_CLIENT_SECRET') }}"
+#   organizations:
+#   - 'ised-ocp-dev'
   
 
 # Uncommented to automatically create a set of test users with the above
 # HTPASSWD Identity Provider
-#create_users:
-#  num_users: 5
-#  prefix: 'rdu-user'
-#  passwd_file: '/etc/origin/master/htpasswd'
-#  password: 'rdu-sample'
+# Note - williab1 - comment this out as this isn't what we want, just testing
+create_users:
+ num_users: 5
+ prefix: 'rdu-user'
+ passwd_file: '/etc/origin/master/htpasswd'
+ password: 'rdu-sample'
 
 # OpenShift Node specific parameters
 openshift_node_groups:
