@@ -130,7 +130,7 @@ openshift_master_identity_providers:
   'clientID': "{{ lookup('env','GITHUB_AUTH_CLIENT_ID') }}"
   'clientSecret': "{{ lookup('env','GITHUB_AUTH_CLIENT_SECRET') }}"
   organizations:
-  - 'ised-ocp-dev'
+  - 'ised-ocp-lab'
   
 
 # Uncommented to automatically create a set of test users with the above
