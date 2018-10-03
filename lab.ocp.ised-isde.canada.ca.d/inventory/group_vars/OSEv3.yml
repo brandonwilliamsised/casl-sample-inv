@@ -29,8 +29,9 @@ containerized: false
 ### OCP version to install
 openshift_release: v3.10
 
+# Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10
+# - otherwise need to change on running cluster's master-config
 #osm_default_node_selector: 'region=primary'
-# Change required for OpenShift 3.10 - otherwise need to change on master-config
 osm_default_node_selector: node-role.kubernetes.io/compute=true
 osm_use_cockpit: true
 osm_cockpit_plugins:
@@ -49,8 +50,21 @@ openshift_master_cluster_hostname: "console.internal.{{ env_id }}.{{ dns_domain 
 openshift_master_cluster_public_hostname: "console.{{ env_id }}.{{ dns_domain }}"
 
 # Certificates
-#openshift_master_named_certificates: [{"certfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/master/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/master/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/master/fullchain.pem"}]
-#openshift_hosted_router_certificate: {"certfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/router/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/router/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/lab.ised-isde.canada.ca/inventory/group_vars/certs/router/fullchain.pem"} 
+# Overwrite certs on subsequent runs
+openshift_master_overwrite_named_certificates: "true"
+# Master Certificates - {{ env_id }}.ocp.ised-isde.canada.ca, *.{{ env_id }}.ocp.ised-isde.canada.ca
+openshift_master_named_certificates: [{
+    "certfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/master/{{ env_id }}.ocp.ised-isde.canada.ca.cer", 
+    "keyfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/master/{{ env_id }}.ocp.ised-isde.canada.ca.key", 
+    "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/master/fullchain.cer"
+}]
+
+# Router Certificate - *.apps.{{ env_id }}.ocp.ised-isde.canada.ca
+openshift_hosted_router_certificate: {
+  "certfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.cer", 
+  "keyfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.key", 
+  "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/fullchain.cer"
+}
 
 # Deploy Logging with dynamic storage
 openshift_logging_install_logging: "true"
@@ -130,7 +144,7 @@ openshift_master_identity_providers:
   'clientID': "{{ lookup('env','GITHUB_AUTH_CLIENT_ID') }}"
   'clientSecret': "{{ lookup('env','GITHUB_AUTH_CLIENT_SECRET') }}"
   organizations:
-  - 'ised-ocp-lab'
+  - 'ised-ocp-{{ env_id }}'
   
 
 # Uncommented to automatically create a set of test users with the above
