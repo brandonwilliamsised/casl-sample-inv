@@ -41,8 +41,8 @@ osm_cockpit_plugins:
 #os_sdn_network_plugin_name: 'redhat/openshift-ovs-multitenant'
 
 # Enable the Network Policy plugin
-os_sdn_network_plugin_name: 'redhat/ovs-networkpolicy'
-
+os_sdn_network_plugin_name: 'redhat/openshift-ovs-networkpolicy'
+# test
 # OpenShift FQDNs, DNS, App domain specific configurations
 openshift_master_cluster_method: native
 openshift_master_default_subdomain: "apps.{{ env_id }}.{{ dns_domain }}"
