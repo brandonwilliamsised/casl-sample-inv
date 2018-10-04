@@ -102,7 +102,7 @@ subnet_az1_cidr: '10.30.1.0/24'
 subnet_az2_cidr: '10.30.2.0/24'
 subnet_az3_cidr: '10.30.3.0/24'
 
-# use the "-e" option to set "aws_key_name"
+# Pass this to docker using env vars -- use the "-e" option to set "aws_key_name"
 #aws_key_name: my-ssh-region-key
 
 # These are the security groups created when aws_create_vpc is 'true'. Modify accordingly to your environment in case using existing VPC and SGs
