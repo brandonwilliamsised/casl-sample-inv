@@ -160,6 +160,6 @@ rhsm_pool: "{{ lookup('env', 'RHSM_POOL' )}}"
 
 # Uncomment the following `additional_list_of_packages_to_install` to list additional
 # packages/RPMs to install during install
-#additional_list_of_packages_to_install:
-#  - rpm-1
+additional_list_of_packages_to_install:
+  - vim-enhanced
 #  - rpm-2
