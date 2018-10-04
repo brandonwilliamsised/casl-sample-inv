@@ -97,10 +97,10 @@ aws_create_vpc: true
 
 # Custom Subnet CIDR configuration. When selecting aws_create_vpc 'true' (this is the default right now), a default CIDR will be creted for both VPC and subnets on each AZ
 # Use the following variables if you want to configure custom CIDR
-#vpc_cidr: <REPLACE WITH VALID CIDR VALUE>
-#subnet_az1_cidr: <REPLACE WITH VALID CIDR VALUE>
-#subnet_az2_cidr: <REPLACE WITH VALID CIDR VALUE>
-#subnet_az3_cdir:  <REPLACE WITH VALID CIDR VALUE>
+vpc_cidr: '10.20.0.0/16'
+subnet_az1_cidr: '10.20.1.0/24'
+subnet_az2_cidr: '10.20.2.0/24'
+subnet_az3_cidr: '10.20.3.0/24'
 
 # use the "-e" option to set "aws_key_name"
 #aws_key_name: my-ssh-region-key

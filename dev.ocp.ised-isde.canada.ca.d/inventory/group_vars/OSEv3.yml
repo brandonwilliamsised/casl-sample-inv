@@ -29,14 +29,20 @@ containerized: false
 ### OCP version to install
 openshift_release: v3.10
 
-osm_default_node_selector: 'region=primary'
+# Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10
+# - otherwise need to change on running cluster's master-config
+#osm_default_node_selector: 'region=primary'
+osm_default_node_selector: node-role.kubernetes.io/compute=true
 osm_use_cockpit: true
 osm_cockpit_plugins:
 - 'cockpit-kubernetes'
 
 # Enable the Multi-Tenant plugin
-os_sdn_network_plugin_name: 'redhat/openshift-ovs-multitenant'
+#os_sdn_network_plugin_name: 'redhat/openshift-ovs-multitenant'
 
+# Enable the Network Policy plugin
+os_sdn_network_plugin_name: 'redhat/openshift-ovs-networkpolicy'
+# test
 # OpenShift FQDNs, DNS, App domain specific configurations
 openshift_master_cluster_method: native
 openshift_master_default_subdomain: "apps.{{ env_id }}.{{ dns_domain }}"
@@ -44,8 +50,21 @@ openshift_master_cluster_hostname: "console.internal.{{ env_id }}.{{ dns_domain 
 openshift_master_cluster_public_hostname: "console.{{ env_id }}.{{ dns_domain }}"
 
 # Certificates
-openshift_master_named_certificates: [{"certfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/master/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/master/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/master/fullchain.pem"}]
-openshift_hosted_router_certificate: {"certfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/router/cert.pem", "keyfile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/router/privkey.pem", "cafile": "/tmp/src/casl-ansible/inventory/dev.ised-isde.canada.ca/inventory/group_vars/certs/router/fullchain.pem"} 
+# Overwrite certs on subsequent runs
+openshift_master_overwrite_named_certificates: "true"
+# Master Certificates - {{ env_id }}.ocp.ised-isde.canada.ca, *.{{ env_id }}.ocp.ised-isde.canada.ca
+openshift_master_named_certificates: [{
+    "certfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/master/{{ env_id }}.ocp.ised-isde.canada.ca.cer", 
+    "keyfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/master/{{ env_id }}.ocp.ised-isde.canada.ca.key", 
+    "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/master/fullchain.cer"
+}]
+
+# Router Certificate - *.apps.{{ env_id }}.ocp.ised-isde.canada.ca
+openshift_hosted_router_certificate: {
+  "certfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.cer", 
+  "keyfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.key", 
+  "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/fullchain.cer"
+}
 
 # Deploy Logging with dynamic storage
 openshift_logging_install_logging: "true"
@@ -106,32 +125,26 @@ openshift_prometheus_alertbuffer_sc_name: "gp2"
 
 # HTPASSWD Identity Provider
 # - update to other types of auth providers if necessary (i.e: LDAP, OAuth, ...)
-#openshift_master_identity_providers:
+# Note - williab1 - comment this out as this isn't what we want, just testing
+# openshift_master_identity_providers:
 # - 'name': 'htpasswd_auth'
 #   'login': 'true'
 #   'challenge': 'true'
 #   'kind': 'HTPasswdPasswordIdentityProvider'
 
 # GITHUB Identity Provider
+# GITHUB_* Keys must be defined as env variables
+# Temporary - will switch out for LDAP/AD auth
 openshift_master_identity_providers:
-- 'name': 'github_auth'
+- 'name': 'github'
   'login': 'true'
   'challenge': 'false'
   'kind': 'GitHubIdentityProvider'
   'mappingMethod': 'claim'
-  'clientID': 'MYID'
-  'clientSecret': 'MYSECRET'
+  'clientID': "{{ lookup('env','GITHUB_AUTH_CLIENT_ID') }}"
+  'clientSecret': "{{ lookup('env','GITHUB_AUTH_CLIENT_SECRET') }}"
   organizations:
-  - 'OSE3Sandbox'
-  
-
-# Uncommented to automatically create a set of test users with the above
-# HTPASSWD Identity Provider
-#create_users:
-#  num_users: 5
-#  prefix: 'rdu-user'
-#  passwd_file: '/etc/origin/master/htpasswd'
-#  password: 'rdu-sample'
+  - 'ised-ocp-{{ env_id }}'
 
 # OpenShift Node specific parameters
 openshift_node_groups:
