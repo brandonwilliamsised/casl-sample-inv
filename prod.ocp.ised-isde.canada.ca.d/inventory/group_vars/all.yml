@@ -30,7 +30,7 @@ cloud_infrastructure:
      count: 3
      flavor: m5.xlarge
      zones:
-     - ca-central-1a
+     - ca-central-1b
      name_prefix: master
      root_volume_size: 70
      docker_volume_size: 70
@@ -46,7 +46,7 @@ cloud_infrastructure:
      count: 5
      flavor: r5.xlarge
      zones:
-     - ca-central-1a
+     - ca-central-1b
      name_prefix: app
      root_volume_size: 70
      docker_volume_size: 70
@@ -54,7 +54,7 @@ cloud_infrastructure:
      count: 3
      flavor: m5.xlarge
      zones:
-     - ca-central-1a
+     - ca-central-1b
      name_prefix: infra
      root_volume_size: 70
      docker_volume_size: 70
@@ -62,7 +62,7 @@ cloud_infrastructure:
      count: 0
      flavor: t2.xlarge
      zones:
-     - ca-central-1a
+     - ca-central-1b
      name_prefix: infra
      root_volume_size: 70
      docker_volume_size: 70
