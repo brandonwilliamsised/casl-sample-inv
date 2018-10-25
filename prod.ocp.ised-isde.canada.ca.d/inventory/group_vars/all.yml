@@ -38,7 +38,7 @@ cloud_infrastructure:
      count: 0
      flavor: t2.xlarge
      zones:
-     - ca-central-1a
+     - ca-central-1b
      name_prefix: etcd
      root_volume_size: 70
      docker_volume_size: 70
