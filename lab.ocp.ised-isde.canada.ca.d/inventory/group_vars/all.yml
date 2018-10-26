@@ -28,7 +28,7 @@ cloud_infrastructure:
    image_name: ami-49f0762d
    masters:
      count: 3
-     flavor: m4.xlarge
+     flavor: m5.xlarge
      zones:
      - ca-central-1a
      name_prefix: master
@@ -44,7 +44,7 @@ cloud_infrastructure:
      docker_volume_size: 70
    appnodes:
      count: 2
-     flavor: m4.large
+     flavor: m5.large
      zones:
      - ca-central-1a
      name_prefix: app
@@ -52,7 +52,7 @@ cloud_infrastructure:
      docker_volume_size: 70
    infranodes:
      count: 3
-     flavor: m4.xlarge
+     flavor: m5.xlarge
      zones:
      - ca-central-1a
      name_prefix: infra
@@ -134,9 +134,9 @@ labels_cns_nodes_tag: '{"node-role.kubernetes.io/compute":"true"}'
 rhsm_register: True
 rhsm_repos:
   - "rhel-7-server-rpms"
-  - "rhel-7-server-ose-3.10-rpms"
+  - "rhel-7-server-ose-3.11-rpms"
   - "rhel-7-server-extras-rpms"
-  - "rhel-7-server-ansible-2.4-rpms"
+  - "rhel-7-server-ansible-2.6-rpms"
 
 # Uncomment the following to use Red Hat Satellite:
 #rhsm_server_hostname: 'sat-6.example.com'
