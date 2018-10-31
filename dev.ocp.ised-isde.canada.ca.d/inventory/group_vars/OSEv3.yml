@@ -16,9 +16,9 @@ openshift_cloudprovider_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}
 openshift_cloudprovider_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
 openshift_clusterid: "{{ env_id }}"
 
-# To fix bug: https://bugzilla.redhat.com/show_bug.cgi?id=1588435
-oreg_url: "registry.access.redhat.com/openshift3/ose-${component}:${version}"
-
+oreg_url: 'registry.redhat.io/openshift3/ose-${component}:${version}'
+oreg_auth_user: "{{ lookup('env', 'OREG_AUTH_USER' )}}"
+oreg_auth_password: "{{ lookup('env', 'OREG_AUTH_PASSWORD' )}}"
 
 # OpenShift Specific Configuration Options
 # - Check the official OpenShift documentation for more details
@@ -29,7 +29,7 @@ containerized: false
 ### OCP version to install
 openshift_release: v3.11
 
-# Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10
+# Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10+
 # - otherwise need to change on running cluster's master-config
 #osm_default_node_selector: 'region=primary'
 osm_default_node_selector: node-role.kubernetes.io/compute=true
