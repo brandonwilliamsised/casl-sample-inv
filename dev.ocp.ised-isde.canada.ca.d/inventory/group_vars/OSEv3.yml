@@ -27,7 +27,7 @@ openshift_deployment_type: openshift-enterprise
 containerized: false
 
 ### OCP version to install
-openshift_release: v3.10
+openshift_release: v3.11
 
 # Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10
 # - otherwise need to change on running cluster's master-config
@@ -85,10 +85,11 @@ openshift_metrics_hawkular_nodeselector: {'node-role.kubernetes.io/infra':'true'
 openshift_metrics_heapster_nodeselector: {'node-role.kubernetes.io/infra':'true'}
 openshift_metrics_cassandra_nodeselector: {'node-role.kubernetes.io/infra':'true'}
 # https://access.redhat.com/solutions/3606401
-openshift_metrics_cassandra_image: registry.access.redhat.com/openshift3/metrics-cassandra:v3.10
-openshift_metrics_hawkular_metrics_image: registry.access.redhat.com/openshift3/metrics-hawkular-metrics:v3.10 
-openshift_metrics_heapster_image: registry.access.redhat.com/openshift3/metrics-heapster:v3.10
-openshift_metrics_schema_installer_image: registry.access.redhat.com/openshift3/metrics-schema-installer:v3.10
+# Remove as this addresses a bug in 3.10
+#openshift_metrics_cassandra_image: registry.access.redhat.com/openshift3/metrics-cassandra:v3.10
+#openshift_metrics_hawkular_metrics_image: registry.access.redhat.com/openshift3/metrics-hawkular-metrics:v3.10 
+#openshift_metrics_heapster_image: registry.access.redhat.com/openshift3/metrics-heapster:v3.10
+#openshift_metrics_schema_installer_image: registry.access.redhat.com/openshift3/metrics-schema-installer:v3.10
 
 # Prometheus
 
