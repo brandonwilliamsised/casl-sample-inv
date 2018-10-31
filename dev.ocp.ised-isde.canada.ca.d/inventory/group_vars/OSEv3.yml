@@ -16,7 +16,9 @@ openshift_cloudprovider_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}
 openshift_cloudprovider_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
 openshift_clusterid: "{{ env_id }}"
 
+# Registry
 oreg_url: 'registry.redhat.io/openshift3/ose-${component}:${version}'
+# Tokens created via RedHat Customer Portal
 oreg_auth_user: "{{ lookup('env', 'OREG_AUTH_USER' )}}"
 oreg_auth_password: "{{ lookup('env', 'OREG_AUTH_PASSWORD' )}}"
 
