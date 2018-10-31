@@ -29,7 +29,7 @@ openshift_deployment_type: openshift-enterprise
 containerized: false
 
 ### OCP version to install
-openshift_release: v3.10
+openshift_release: v3.11
 
 # Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10
 # - otherwise need to change on running cluster's master-config
