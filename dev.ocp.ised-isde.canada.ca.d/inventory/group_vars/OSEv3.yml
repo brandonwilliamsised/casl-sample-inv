@@ -122,17 +122,6 @@ openshift_prometheus_sc_name: "gp2"
 openshift_prometheus_alertmanager_sc_name: "gp2"
 openshift_prometheus_alertbuffer_sc_name: "gp2"
 
-
-
-# HTPASSWD Identity Provider
-# - update to other types of auth providers if necessary (i.e: LDAP, OAuth, ...)
-# Note - williab1 - comment this out as this isn't what we want, just testing
-# openshift_master_identity_providers:
-# - 'name': 'htpasswd_auth'
-#   'login': 'true'
-#   'challenge': 'true'
-#   'kind': 'HTPasswdPasswordIdentityProvider'
-
 # GITHUB Identity Provider
 # GITHUB_* Keys must be defined as env variables
 # Temporary - will switch out for LDAP/AD auth
