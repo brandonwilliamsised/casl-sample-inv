@@ -73,6 +73,15 @@ openshift_hosted_router_certificate: {
   "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/fullchain.cer"
 }
 
+# Secure external registry route (https://docs.okd.io/latest/install_config/certificate_customization.html#configuring-custom-certificates-registry)
+openshift_hosted_registry_routehost: "registry.apps.{{ env_id }}.{{ dns_domain }}"
+openshift_hosted_registry_routecertificates: [{
+  "certfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.cer", 
+  "keyfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.key", 
+  "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/fullchain.cer"
+}]
+openshift_hosted_registry_routetermination: "reencrypt"
+
 # Deploy Logging with dynamic storage
 openshift_logging_install_logging: "true"
 openshift_logging_es_pvc_dynamic: "true"
