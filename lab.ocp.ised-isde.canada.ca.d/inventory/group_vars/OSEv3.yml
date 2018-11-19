@@ -51,11 +51,6 @@ openshift_master_default_subdomain: "apps.{{ env_id }}.{{ dns_domain }}"
 openshift_master_cluster_hostname: "console.internal.{{ env_id }}.{{ dns_domain }}"
 openshift_master_cluster_public_hostname: "console.{{ env_id }}.{{ dns_domain }}"
 
-# 3.11 - This variable enables TLS bootstrapping auto approval, which allows nodes to 
-# automatically join the cluster when provided a bootstrap credential. Set to true if you will 
-# enable the cluster auto-scaler on an Amazon Web Services (AWS) cluster. The default value is false.
-#openshift_master_bootstrap_auto_approve
-
 # Certificates
 # Overwrite certs on subsequent runs
 openshift_master_overwrite_named_certificates: "true"
@@ -101,13 +96,9 @@ openshift_metrics_hawkular_nodeselector: {'node-role.kubernetes.io/infra':'true'
 openshift_metrics_heapster_nodeselector: {'node-role.kubernetes.io/infra':'true'}
 openshift_metrics_cassandra_nodeselector: {'node-role.kubernetes.io/infra':'true'}
 
-# Deprecated
-#openshift_hosted_prometheus_deploy: true
-#openshift_prometheus_node_selector: {'node-role.kubernetes.io/infra':'true'}
-# Workaround for BZ https://bugzilla.redhat.com/show_bug.cgi?id=1549936
-#openshift_prometheus_node_exporter_image_version: v3.10
-# Workaround for BZ https://bugzilla.redhat.com/show_bug.cgi?id=1563888
-#openshift_node_open_ports: [{"service":"Prometheus Node Exporter", "port":"9100/tcp"},{"service":"Prometheus Router Stats", "port":"1936/tcp"}]
+# Prometheus
+openshift_cluster_monitoring_operator_prometheus_storage_enabled: "true"
+openshift_cluster_monitoring_operator_alertmanager_storage_enabled: "true"
 
 # Prometheus storage
 openshift_prometheus_storage_access_modes: ['ReadWriteOnce']
@@ -130,15 +121,6 @@ openshift_prometheus_alertbuffer_storage_type: 'pvc'
 openshift_prometheus_sc_name: "gp2"
 openshift_prometheus_alertmanager_sc_name: "gp2"
 openshift_prometheus_alertbuffer_sc_name: "gp2"
-
-# 3.11 Changes
-openshift_cluster_monitoring_operator_prometheus_storage_enabled: true
-# Default for openshift_cluster_monitoring_operator_prometheus_storage_capacity is 50gi
-# openshift_cluster_monitoring_operator_prometheus_storage_capacity: 50Gi
-
-# other 3.11 defaults
-# openshift_certificate_expiry_warning_days = 365
-# openshift_certificate_expiry_fail_on_warn = true
 
 # GITHUB Identity Provider
 # GITHUB_* Keys must be defined as env variables
