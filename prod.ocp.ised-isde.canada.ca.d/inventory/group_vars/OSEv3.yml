@@ -31,7 +31,7 @@ containerized: false
 ### OCP version to install
 openshift_release: v3.11
 
-# Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10
+# Change - set to node-role.kubernetes.io/compute=true - required for OpenShift 3.10+
 # - otherwise need to change on running cluster's master-config
 #osm_default_node_selector: 'region=primary'
 osm_default_node_selector: node-role.kubernetes.io/compute=true
@@ -95,19 +95,10 @@ openshift_metrics_cassandra_pvc_size: "10Gi"
 openshift_metrics_hawkular_nodeselector: {'node-role.kubernetes.io/infra':'true'}
 openshift_metrics_heapster_nodeselector: {'node-role.kubernetes.io/infra':'true'}
 openshift_metrics_cassandra_nodeselector: {'node-role.kubernetes.io/infra':'true'}
-# https://access.redhat.com/solutions/3606401
-openshift_metrics_cassandra_image: registry.access.redhat.com/openshift3/metrics-cassandra:v3.10
-openshift_metrics_hawkular_metrics_image: registry.access.redhat.com/openshift3/metrics-hawkular-metrics:v3.10 
-openshift_metrics_heapster_image: registry.access.redhat.com/openshift3/metrics-heapster:v3.10
-openshift_metrics_schema_installer_image: registry.access.redhat.com/openshift3/metrics-schema-installer:v3.10
 
-# Deprecated
-#openshift_hosted_prometheus_deploy: true
-#openshift_prometheus_node_selector: {'node-role.kubernetes.io/infra':'true'}
-# Workaround for BZ https://bugzilla.redhat.com/show_bug.cgi?id=1549936
-#openshift_prometheus_node_exporter_image_version: v3.10
-# Workaround for BZ https://bugzilla.redhat.com/show_bug.cgi?id=1563888
-#openshift_node_open_ports: [{"service":"Prometheus Node Exporter", "port":"9100/tcp"},{"service":"Prometheus Router Stats", "port":"1936/tcp"}]
+# Prometheus
+openshift_cluster_monitoring_operator_prometheus_storage_enabled: "true"
+openshift_cluster_monitoring_operator_alertmanager_storage_enabled: "true"
 
 # Prometheus storage
 openshift_prometheus_storage_access_modes: ['ReadWriteOnce']
@@ -130,17 +121,6 @@ openshift_prometheus_alertbuffer_storage_type: 'pvc'
 openshift_prometheus_sc_name: "gp2"
 openshift_prometheus_alertmanager_sc_name: "gp2"
 openshift_prometheus_alertbuffer_sc_name: "gp2"
-
-
-
-# HTPASSWD Identity Provider
-# - update to other types of auth providers if necessary (i.e: LDAP, OAuth, ...)
-# Note - williab1 - comment this out as this isn't what we want, just testing
-# openshift_master_identity_providers:
-# - 'name': 'htpasswd_auth'
-#   'login': 'true'
-#   'challenge': 'true'
-#   'kind': 'HTPasswdPasswordIdentityProvider'
 
 # GITHUB Identity Provider
 # GITHUB_* Keys must be defined as env variables
