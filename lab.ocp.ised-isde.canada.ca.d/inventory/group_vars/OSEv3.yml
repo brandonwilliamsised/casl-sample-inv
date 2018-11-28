@@ -22,6 +22,15 @@ oreg_url: 'registry.redhat.io/openshift3/ose-${component}:${version}'
 oreg_auth_user: "{{ lookup('env', 'OREG_AUTH_USER' )}}"
 oreg_auth_password: "{{ lookup('env', 'OREG_AUTH_PASSWORD' )}}"
 
+rhsm_user: &rhsm_user "{{ lookup('env', 'RHSM_USER' ) }}"
+rhsm_passwd: &rhsm_passwd "{{ lookup('env', 'RHSM_PASSWD' ) }}"
+
+# OLM/Operator Lifecycle Manager Registry Configuration
+# This can also be done post-install using Ansible (https://docs.openshift.com/container-platform/3.11/install_config/installing-operator-framework.html#installing-olm-using-ansible_installing-operator-framework)
+# This may eventually move to registry.redhat.io? Presently, only registry.connect.redhat.com is supported by Red Hat.
+openshift_enable_olm: true
+openshift_additional_registry_credentials: [{'host':'registry.connect.redhat.com','user': *rhsm_user,'password': *rhsm_passwd,'test_image':'mongodb/enterprise-operator:0.4'}]
+
 # OpenShift Specific Configuration Options
 # - Check the official OpenShift documentation for more details
 deployment_type: openshift-enterprise
