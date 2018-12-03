@@ -48,12 +48,9 @@ osm_use_cockpit: true
 osm_cockpit_plugins:
 - 'cockpit-kubernetes'
 
-# Enable the Multi-Tenant plugin
-#os_sdn_network_plugin_name: 'redhat/openshift-ovs-multitenant'
-
 # Enable the Network Policy plugin
 os_sdn_network_plugin_name: 'redhat/openshift-ovs-networkpolicy'
-# test
+
 # OpenShift FQDNs, DNS, App domain specific configurations
 openshift_master_cluster_method: native
 openshift_master_default_subdomain: "apps.{{ env_id }}.{{ dns_domain }}"
@@ -77,7 +74,7 @@ openshift_hosted_router_certificate: {
   "cafile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/fullchain.cer"
 }
 
-# Secure external registry route (https://docs.okd.io/latest/install_config/certificate_customization.html#configuring-custom-certificates-registry)
+# Secure external registry route (https://docs.openshift.com/container-platform/3.11/install/configuring_inventory_file.html#advanced-install-configuring-docker-route)
 openshift_hosted_registry_routehost: "registry.apps.{{ env_id }}.{{ dns_domain }}"
 openshift_hosted_registry_routecertificates: {
   "certfile": "/tmp/src/casl-ansible/inventory/{{ env_id }}.ocp.ised-isde.canada.ca.d/inventory/group_vars/certs/router/*.apps.{{ env_id }}.ocp.ised-isde.canada.ca.cer", 
