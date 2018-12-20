@@ -43,7 +43,7 @@ cloud_infrastructure:
      root_volume_size: 70
      docker_volume_size: 70
    appnodes:
-     count: 5
+     count: 3
      flavor: r5.xlarge
      zones:
      - ca-central-1b
